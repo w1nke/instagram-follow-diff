@@ -1,6 +1,6 @@
 # Instagram Follow Diff
 
-Analyze who doesn't follow you back on Instagram using HTML copied directly from the web interface.
+Analyze who doesn't follow you back on Instagram using HTML files.
 
 ✅ No API
 ✅ No login
@@ -9,13 +9,27 @@ Analyze who doesn't follow you back on Instagram using HTML copied directly from
 
 ---
 
-## 🚀 Usage
+## ⚡ Quick start
+
+This repository already includes sample HTML files.
+
+Just run:
 
 ```bash
 python export_instagram_followers.py
 ```
 
-Or manually:
+---
+
+## 🚀 Usage
+
+Automatic mode (recommended):
+
+```bash
+python export_instagram_followers.py
+```
+
+Manual mode:
 
 ```bash
 python export_instagram_followers.py followers.html following.html
@@ -23,34 +37,57 @@ python export_instagram_followers.py followers.html following.html
 
 ---
 
-## 📥 How to get data (required)
+## 📂 How it works
 
-This tool works with HTML copied from Instagram in your browser.
+The script:
 
-### Step-by-step
+1. Looks for `.html` files in the same folder
+2. Expects exactly **2 HTML files**
+3. Automatically determines:
 
-1. Open Instagram in your browser
+   * file with `i-follow` / `following` → **following**
+   * the other file → **followers**
 
-2. Go to your:
+Then it compares both lists and finds users who don’t follow you back.
 
-   * **Followers**
-   * **Following**
+---
 
-3. Scroll all the way down until **all users are loaded**
-   (Instagram loads users dynamically)
+## 📥 Input files
 
-4. Right-click → **Inspect (DevTools)**
+This repository includes ready-to-use examples:
 
-5. Find the container with the users list
+* `insa-fol-26.html`
+* `insta-i-follow-26.html`
 
-6. Right-click → **Copy → Copy outerHTML**
+You can use them immediately or replace with your own files.
 
-7. Save into files:
+---
+
+## 🛠 Using your own data
+
+1. Open Instagram in browser
+
+2. Go to:
+
+   * Followers
+   * Following
+
+3. Scroll until **all users are loaded**
+
+4. Open DevTools (Inspect)
+
+5. Copy the list container:
+
+   * Right-click → Copy → Copy outerHTML
+
+6. Save as:
 
 ```
 followers.html
 following.html
 ```
+
+Place files into the project folder.
 
 ---
 
@@ -58,25 +95,34 @@ following.html
 
 * You MUST scroll fully before copying
 * Partial scroll = incomplete results
-* The script only processes what exists in the HTML
+* The script processes only the provided HTML
 
 ---
 
-## 🧠 How it works
+## 🧠 How it works internally
 
-The script parses HTML and extracts profile links like:
+The script extracts usernames from links like:
 
 ```html
 <a href="/username/">...</a>
 ```
 
-Usernames are extracted from these links and compared between lists.
+It builds two sets:
+
+* followers
+* following
+
+Then computes:
+
+```
+following - followers
+```
 
 ---
 
 ## 📄 Output
 
-The script generates:
+Generated files:
 
 * `followers_YYYY-MM-DD_HH-MM-SS.txt`
 * `following_YYYY-MM-DD_HH-MM-SS.txt`
@@ -97,21 +143,12 @@ Total: 3
 
 ---
 
-## 📂 Example input
-
-This repository includes sample files:
-
-* `insa-fol-26.html`
-* `insta-i-follow-26.html`
-
----
-
 ## ⚖️ Legal Disclaimer
 
 This project is not affiliated with, authorized, maintained, sponsored, or endorsed by Instagram or Meta.
 
 This tool does not access Instagram directly.
-It only processes HTML provided by the user.
+It only processes HTML files provided by the user.
 
 Users are responsible for ensuring their usage complies with applicable laws and platform terms.
 
@@ -119,8 +156,8 @@ Users are responsible for ensuring their usage complies with applicable laws and
 
 ## 🧩 Features
 
-* Auto-detects HTML files in directory
-* No dependencies (pure Python)
+* Auto-detects HTML files
+* Zero dependencies (pure Python)
 * Works offline
 * Simple and fast
 
@@ -138,7 +175,7 @@ Users are responsible for ensuring their usage complies with applicable laws and
 ```
 .
 ├── export_instagram_followers.py
-├── followers.html
-├── following.html
+├── insa-fol-26.html
+├── insta-i-follow-26.html
 └── README.md
 ```
