@@ -1,17 +1,46 @@
 # Instagram Follow Diff
 
-Analyze who doesn't follow you back on Instagram using HTML files.
+Find who doesn’t follow you back on Instagram using HTML files.
 
 ✅ No API
 ✅ No login
 ✅ No scraping
-✅ No external dependencies
+✅ No dependencies
+
+---
+
+## 🧰 Setup (first time only)
+
+### 1. Install Python
+
+* Download: https://www.python.org/downloads/
+* During installation (Windows): ✔ **Add Python to PATH**
+
+Verify:
+
+```bash
+python --version
+```
+
+---
+
+### 2. Install VS Code (optional but recommended)
+
+* Download: https://code.visualstudio.com/
+* Open the project folder in VS Code
+
+---
+
+### 3. Download this project
+
+* Click **Code → Download ZIP**
+* Unzip the folder
 
 ---
 
 ## ⚡ Quick start
 
-This repository already includes sample HTML files.
+Sample HTML files are already included.
 
 Just run:
 
@@ -21,49 +50,7 @@ python export_instagram_followers.py
 
 ---
 
-## 🚀 Usage
-
-Automatic mode (recommended):
-
-```bash
-python export_instagram_followers.py
-```
-
-Manual mode:
-
-```bash
-python export_instagram_followers.py followers.html following.html
-```
-
----
-
-## 📂 How it works
-
-The script:
-
-1. Looks for `.html` files in the same folder
-2. Expects exactly **2 HTML files**
-3. Automatically determines:
-
-   * file with `i-follow` / `following` → **following**
-   * the other file → **followers**
-
-Then it compares both lists and finds users who don’t follow you back.
-
----
-
-## 📥 Input files
-
-This repository includes ready-to-use examples:
-
-* `insa-fol-26.html`
-* `insta-i-follow-26.html`
-
-You can use them immediately or replace with your own files.
-
----
-
-## 🛠 Using your own data
+## 📥 How to get your data
 
 1. Open Instagram in browser
 
@@ -72,47 +59,64 @@ You can use them immediately or replace with your own files.
    * Followers
    * Following
 
-3. Scroll until **all users are loaded**
+3. Scroll to the very bottom (Instagram loads users dynamically)
 
-4. Open DevTools (Inspect)
+4. Open DevTools (**Inspect**)
 
-5. Copy the list container:
-
-   * Right-click → Copy → Copy outerHTML
-
-6. Save as:
-
-```
-followers.html
-following.html
-```
-
-Place files into the project folder.
-
----
-
-## ⚠️ Important
-
-* You MUST scroll fully before copying
-* Partial scroll = incomplete results
-* The script processes only the provided HTML
-
----
-
-## 🧠 How it works internally
-
-The script extracts usernames from links like:
+5. Find and copy the main list container:
 
 ```html
-<a href="/username/">...</a>
+<div style="display: flex; flex-direction: column; padding-bottom: 0px; padding-top: 0px; position: relative;">
 ```
 
-It builds two sets:
+👉 Copy the entire block (**Copy outerHTML**)
 
-* followers
-* following
+---
 
-Then computes:
+## 📂 Insert into project
+
+1. Open:
+
+* `insa-fol-26.html` → paste Followers
+* `insta-i-follow-26.html` → paste Following
+
+2. Replace existing content with your copied HTML
+
+---
+
+## ▶️ Run
+
+In VS Code:
+
+👉 Click **Run**
+or use terminal:
+
+```bash
+python export_instagram_followers.py
+```
+
+---
+
+## 📄 Output
+
+The script generates:
+
+* followers_*.txt
+* following_*.txt
+* not_following_back_*.txt
+
+---
+
+## 🧠 How it works
+
+* Reads HTML files from the project folder
+* Extracts usernames from:
+
+```html
+<a href="/username/">
+```
+
+* Compares:
 
 ```
 following - followers
@@ -120,57 +124,22 @@ following - followers
 
 ---
 
-## 📄 Output
+## ⚠️ Important
 
-Generated files:
-
-* `followers_YYYY-MM-DD_HH-MM-SS.txt`
-* `following_YYYY-MM-DD_HH-MM-SS.txt`
-* `not_following_back_YYYY-MM-DD_HH-MM-SS.txt`
-
-Example:
-
-```
-I Follow — They Don't Follow Back
-================================
-Exported: 2026-05-04_10-30-22
-Total: 3
-
-1. user1 (@user1)
-2. user2 (@user2)
-3. user3 (@user3)
-```
+* You MUST scroll fully before copying
+* Partial data = wrong results
+* Script works only with provided HTML
 
 ---
 
-## ⚖️ Legal Disclaimer
+## ⚖️ Legal
 
-This project is not affiliated with, authorized, maintained, sponsored, or endorsed by Instagram or Meta.
-
-This tool does not access Instagram directly.
-It only processes HTML files provided by the user.
-
-Users are responsible for ensuring their usage complies with applicable laws and platform terms.
+Not affiliated with Instagram / Meta.
+No direct access — only processes user-provided HTML.
 
 ---
 
-## 🧩 Features
-
-* Auto-detects HTML files
-* Zero dependencies (pure Python)
-* Works offline
-* Simple and fast
-
----
-
-## 🧑‍💻 Notes
-
-* HTML structure may change if Instagram updates UI
-* Designed for personal use
-
----
-
-## 📌 Project structure
+## 📌 Structure
 
 ```
 .
